@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Summary{% endblock %}
+
+{% block content %}
+    <style>
+        p.solid {
+            border-style: solid;
+            width: fit-content;
+            padding: 10px;
+        };
+    </style>
+
+    <br>
+    <br>
+
+    <p class="solid">Total Cost: £{{ total }}</p>
+
+    <br>
+    <br>
+
+    <button type="button" onclick="window.location.href='{{ url_for('home') }}';">Back</button>
+{% endblock %}

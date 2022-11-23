@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+        Item: <input type="text" name="item" id="item" />
+    <br>
+        Price (£): <input type="number" name="price" id="price" />
+    <br>
+    <br>
+        <input type="button" value="Add new item" id="add">
+    <br>
+    <br>
+
+    <table id="table" border="1">
+        <thead id="table-head">
+            <tr>
+                <th>Items</th>
+                <th>Price (£)</th>
+            </tr>
+        </thead>
+
+        <tbody id="table-body">
+            {% for item_row in data %}
+                <tr>
+                    <td>{{ item_row["item"] }}</td>
+                    <td>{{ item_row["price"] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+
+
+    <button type="button" onclick="window.location.href='{{ url_for('summary') }}';">Summary</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#add").click(function(){
+
+                $.ajax({
+                    url: '/add',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        "item": document.getElementById("item").value,
+                        "price": document.getElementById("price").value
+                    }),
+                    contentType:"application/json; charset=utf-8",
+                    dataType:"json"
+                })
+            });
+        });
+
+        $(document).ajaxStop(function(){
+            window.location.reload();
+        });
+
+    </script>
+{% endblock %}

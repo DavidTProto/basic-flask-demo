@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    {% block head %}
+        <title>{% block title %}{% endblock %} - Python Test</title>
+        <link rel="shortcut icon" href="#" />
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <div id="footer">
+      {% block footer %}
+        <br>
+        <br>
+        <br>
+        <br>
+        Created by David Theobald.
+      {% endblock %}
+    </div>
+  </body>
+</html>
