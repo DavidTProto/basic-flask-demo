@@ -1,0 +1,1 @@
+docker build -t test_app -f ./Dockerfile ./..

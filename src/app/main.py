@@ -4,6 +4,7 @@ SHORTCUTS:
     - Should have set up gunicorn to make this production app
     - Would like to add jsonschema validation of post request
       to handle validation (ints, required fields, etc).
+    - Running app across all addresses.
 """
 import logging
 
@@ -107,4 +108,6 @@ if __name__ == "__main__":
     # Initialise / rebuilding SQLite database
     # Optional: wouldn't need if using hosted db
     init_db()
-    app.run(port=5000)
+
+    # Note: Running across all addresses. Wouldn't do this for production app.
+    app.run(host="0.0.0.0", port=5000)
