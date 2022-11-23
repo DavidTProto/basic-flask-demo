@@ -1,24 +1,26 @@
-# David Theobald - Python Test
+# David Theobald - Basic Flask Demo
 
-## How to run
+## How to run locally
 You can run by cloning this repository and following the setup process below:
 
 1) creating a python3.8 environment
-2) run `pip install -r src/app/requirements.txt`
-3) run `python src/app/main.py`
+2) run `cd project-app` 
+3) run `pip install .[test]`
+4) run `python src/project_app/main.py`
 
 ## Deployment
 Alternatively, you can go to the below url where the app is hosted:
 
-{place_holder for URL}
+http://ec2-35-178-115-185.eu-west-2.compute.amazonaws.com/
+
 
 ## Testing
 There are some testing utilities within this git repository. To get these to run,
 follow the below steps:
 
-1) cd src
-2) pip install -e .[test]
-3) pytest test_app
+1) `cd project-app`
+2) `pip install .[test]`
+3) `pytest test_app`
 
 
 ### Shortcuts
