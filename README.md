@@ -3,10 +3,12 @@
 ## How to run locally
 You can run by cloning this repository and following the setup process below:
 
-1) creating a python3.8 environment
+1) Create and activate a python3.8 environment
 2) run `cd project-app` 
 3) run `pip install .[test]`
 4) run `python src/project_app/main.py`
+5) Load http://localhost:5000
+
 
 ## Deployment
 Alternatively, you can go to the below url where the app is hosted:
@@ -18,9 +20,10 @@ http://ec2-35-178-115-185.eu-west-2.compute.amazonaws.com/
 There are some testing utilities within this git repository. To get these to run,
 follow the below steps:
 
-1) `cd project-app`
-2) `pip install .[test]`
-3) `pytest test_app`
+1) Create and activate a python3.8 environment (if not done so already)
+2) Run `cd project-app`
+3) If not done so already, run `pip install .[test]`
+3) Run `pytest test_app`
 
 
 ### Shortcuts
