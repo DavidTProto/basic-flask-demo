@@ -9,6 +9,8 @@ flask processes to access it at once.
 Shortcut:
     - Didn't use a a Database migration tool (Alembic)
     - Skipped Testing
+    - Hardcoded connection string so coupled to SQLite, could have
+      environment variable to make this more dynamic.
 """
 import os
 import sqlite3
@@ -23,7 +25,7 @@ DATABASE = 'demo.db'
 
 def init_db():
     """ Creates / Overwrites local SQLite database with required schema"""
-    with open(os.path.join('sql', 'schema.sql'), mode='r') as f:
+    with open(os.path.join(os.path.dirname(__file__),'sql', 'schema.sql'), mode='r') as f:
         db = sqlite3.connect(DATABASE)
         db.cursor().executescript(f.read())
         db.commit()

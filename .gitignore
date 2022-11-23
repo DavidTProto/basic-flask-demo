@@ -1,3 +1,4 @@
 /Python\ Engineer\ Test.doc
 __pycache__/
 *.db
+*.egg-info/

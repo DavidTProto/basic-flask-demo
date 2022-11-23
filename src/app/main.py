@@ -13,12 +13,12 @@ from flask import (
     Flask, render_template, url_for, request, Response
 )
 
-from model.items import Items
-from db_utils import init_db, session_scope
+from app.model.items import Items
+from app.db_utils import init_db, session_scope
 
 
 app = Flask(__name__)
-app.logger.setLevel(logging.INFO)
+app.logger.setLevel(logging.DEBUG)
 
 
 @app.route("/")
@@ -33,7 +33,7 @@ def home():
             for record in records
         ]
 
-    app.logger.info(f"Displaying data from database: {data}")
+    app.logger.debug(f"Displaying data from database: {data}")
 
     return render_template("landing.html", data=data)
 
@@ -45,7 +45,7 @@ def summary():
         total = ss.query(func.sum(Items.price)).one()[0]
 
     total = total or 0
-    app.logger.info(f"Total sum of all items: {total}")
+    app.logger.debug(f"Total sum of all items: {total}")
 
     return render_template("summary.html", total=total)
 
@@ -54,24 +54,33 @@ def summary():
 def add():
     """ Create a new item and store it in the database."""
     request_json = request.get_json()
-    app.logger.info(f"Incoming request: {request_json}")
+    app.logger.debug(f"Incoming request: {request_json}")
 
-    item_name = request_json.get("item").lower()
+    item_name = request_json.get("item")
     price = request_json.get("price")
 
-    if (item_name is None) or (price is None):
+    # Check for presence would usually be in jsonschema checking
+    # SHORTCUT: price being an integer would be a JSONSchema item, so aware this would
+    # fail of price = 0 (in production wouldn't be an issue)
+    if (not item_name) or (not price ):
+        app.logger.debug(
+                "We can't add an item without both 'item' and 'price' attributes."
+            )
         return Response(
             "We can't add an item without both 'item' and 'price' attributes.",
             status=400
         )
 
     with session_scope() as session:
+        # Making item_name case insensitive to check for duplication
+        item_name = item_name.lower()
+
         existing_items = session.query(Items).filter(
             Items.item_name == item_name
         ).all()
 
         if len(existing_items) > 0:
-            app.logger.exception(
+            app.logger.debug(
                 f"Item ({item_name}) already exists in the database."
             )
             return Response(
@@ -89,14 +98,14 @@ def add():
             session.commit()
         except Exception as e:
             session.rollback()
-            app.logger.exception(
+            app.logger.debug(
                 f"An exception occured when adding items to the database: {e}")
             return Response(
                 f"An exception occured when adding items to the database: {e}",
                 status=400
             )
 
-    app.logger.info(f"The items were successfully added.")
+    app.logger.debug(f"The items were successfully added.")
 
     return Response(
         "New item: () created succeddfully",
