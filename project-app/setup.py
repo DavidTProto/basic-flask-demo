@@ -10,13 +10,13 @@ def list_requirements(file_name):
         return f.read().split()
 
 
-PACKAGE_NAME = 'test_app'
+PACKAGE_NAME = 'project-app'
 
 setup(
     name=PACKAGE_NAME,
     version='0.0.0',
-    packages=find_packages(where=''),
-    package_data={PACKAGE_NAME: ["*.sql", "*.html"]},
+    packages=find_packages(where='src'),
+    package_dir = {'': 'src'},
     include_package_data=True,
     install_requires=list_requirements('requirements.txt'),
     tests_require=list_requirements('test-requirements.txt'),

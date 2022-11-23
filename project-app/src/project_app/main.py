@@ -13,8 +13,8 @@ from flask import (
     Flask, render_template, url_for, request, Response
 )
 
-from app.model.items import Items
-from app.db_utils import init_db, session_scope
+from project_app.model.items import Items
+from project_app.db_utils import init_db, session_scope
 
 
 app = Flask(__name__)

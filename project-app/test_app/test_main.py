@@ -9,9 +9,9 @@ Shortcut:
 
 import pytest
 
-from app.main import app
-from app.db_utils import init_db, session_scope
-from app.model.items import Items
+from project_app.main import app
+from project_app.db_utils import init_db, session_scope
+from project_app.model.items import Items
 
 init_db()
 

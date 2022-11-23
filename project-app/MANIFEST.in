@@ -1,0 +1,2 @@
+recursive-include src/project_app/sql *.sql
+recursive-include src/project_app/templates *.html
